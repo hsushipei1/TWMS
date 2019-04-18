@@ -1,6 +1,7 @@
 #!/home/hsushipei/miniconda2/bin/python
 import os, pickle, datetime, sys
-CDO = "~/software/PREVIOUS_SOFTWARE/cdo-1.9.3/bin/cdo -O "
+#CDO = "~/software/PREVIOUS_SOFTWARE/cdo-1.9.3/bin/cdo -O "
+CDO = "~/software/bin/cdo -O "
 slic_6h_dir = "/data5/hsushipei/data/fnl/sliced/latest/6hr/"
 slic_day_dir = "/data5/hsushipei/data/fnl/sliced/latest/daily/"
 
@@ -17,7 +18,8 @@ def sixhr2daily( indv_6h_files, singldaily_file, varname_ori, varname_chd ):
 	20180722
 	Merge 6 hr data to daily data and compress it. 
 	"""
-	os.system(CDO+" -a -z zip_4 -f nc4 -shifttime,-9hours -daymean -chname,'"+varname_ori+"','"+varname_chd+"' -cat '"+indv_6h_files+"' "+singldaily_file)
+	#os.system(CDO+" -a -z zip_2 -f nc4 -shifttime,-9hours -daymean -chname,'"+varname_ori+"','"+varname_chd+"' -cat '"+indv_6h_files+"' "+singldaily_file)
+	os.system(CDO+" -a -z zip_1 -f nc4 -shifttime,-9hours -daymean -chname,'"+varname_ori+"','"+varname_chd+"' -cat '"+indv_6h_files+"' "+singldaily_file)
 
 def merg2_long_day_data(long_term_daily_file, singldaily_file ):
 	"""

@@ -4,7 +4,8 @@ import os, pickle
 """
 gfs_data_dir = "/data5/hsushipei/data/gfs/ncep"
 WGRIB2 = "/home/hsushipei/software/bundle/grib2/wgrib2/wgrib2"
-CDO = "/home/hsushipei/software/PREVIOUS_SOFTWARE/cdo-1.9.3/bin/cdo"
+#CDO = "/home/hsushipei/software/PREVIOUS_SOFTWARE/cdo-1.9.3/bin/cdo"
+CDO = "/home/hsushipei/software/bin/cdo"
 
 f = open(gfs_data_dir+"/"+"current_data_time.txt","rb")
 dd = pickle.load(f)
@@ -25,7 +26,7 @@ os.system(WGRIB2+" "+gfs_data_dir+"/gfs."+data_time+".pgrb2.1p00.f000_f384.grib2
 
 # Convert to daily
 print "Convert GFS 6hr "+var+" to daily mean..."
-os.system(CDO+" -a -z zip_4 daymean "+gfs_data_dir+"/"+middle_file+" "+gfs_data_dir+"/"+output_nc_file)
+os.system(CDO+" -a -z zip_2 daymean "+gfs_data_dir+"/"+middle_file+" "+gfs_data_dir+"/"+output_nc_file)
 
 # delete middle file
 print "Remove middle file "+gfs_data_dir+"/"+middle_file
