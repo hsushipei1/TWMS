@@ -19,7 +19,7 @@ def sixhr2daily( indv_6h_files, singldaily_file, varname_ori, varname_chd ):
 	Merge 6 hr data to daily data and compress it. 
 	"""
 	#os.system(CDO+" -a -z zip_2 -f nc4 -shifttime,-9hours -daymean -chname,'"+varname_ori+"','"+varname_chd+"' -cat '"+indv_6h_files+"' "+singldaily_file)
-	os.system(CDO+" -a -z zip_1 -f nc4 -shifttime,-9hours -daymean -chname,'"+varname_ori+"','"+varname_chd+"' -cat '"+indv_6h_files+"' "+singldaily_file)
+	os.system(CDO+" -a -f nc -shifttime,-9hours -daymean -chname,'"+varname_ori+"','"+varname_chd+"' -cat '"+indv_6h_files+"' "+singldaily_file)
 
 def merg2_long_day_data(long_term_daily_file, singldaily_file ):
 	"""
