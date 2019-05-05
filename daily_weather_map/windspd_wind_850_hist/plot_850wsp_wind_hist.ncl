@@ -3,7 +3,7 @@ print("%%%% Enter 'plot_850wsp_wind_hist.ncl' %%%% ")
 
 ;;----domain
 lon1 = 39 
-lon2 = 151
+lon2 = 181
 lats = -25
 latn = 30
 plev = 850 ; unit: hPa

@@ -52,7 +52,7 @@ convert -crop 1062x1124+70+30 \
 convert -crop 1128x1136+34+30 \
 	${dir}/hgt_500_hist/hgt_500_hist.pdf ${out_dir}/weekly_hgt_500.png
 # 850 hPa
-convert -crop 1042x1136+84+31 -rotate "-90" \
+convert -rotate "-90" -crop 1138x862+32+163 \
 	${dir}/windspd_wind_850_hist/windspd_wind_850_hist.pdf ${out_dir}/weekly_windspd_wind_850.png
 
 ## MJO and tropical waves
