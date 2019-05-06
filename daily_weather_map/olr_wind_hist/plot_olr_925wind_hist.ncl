@@ -99,18 +99,19 @@ res2@gsnDraw       = False                ; don't draw yet
 res2@gsnFrame      = False                ; don't advance frame yet
 res2@gsnAddCyclic  = False
 ;res2@vcMinMagnitudeF      = 0.05    ;  arrow with magnitude under this value will not be drawn.
-res2@vcRefLengthF         = 0.025    ;  length of unit reference vector
-res2@vcRefMagnitudeF      =  15.    ;  magnitude of the reference vector
+res2@vcRefLengthF         = 0.045    ;  length of unit reference vector
+res2@vcRefMagnitudeF      =  20.    ;  magnitude of the reference vector
 res2@vcMinDistanceF       = 0.025    ;  Vector density: distance between arrows
-res2@vcLineArrowHeadMinSizeF = 0.0053
-res2@vcLineArrowHeadMaxSizeF = 0.0053
-res2@vcLineArrowThicknessF = 2.5 ; arrow thickness
+res2@vcGlyphStyle         = "LineArrow"
+;res2@vcLineArrowHeadMinSizeF = 0.0053
+;res2@vcLineArrowHeadMaxSizeF = 0.0053
+res2@vcLineArrowThicknessF = 2. ; arrow thickness
 res2@vcRefAnnoOrthogonalPosF = 0.2 ; y position of vector reference annotation
 res2@vcRefAnnoFont = 21 ; font for vector reference annotation
 res2@vcRefAnnoFontHeightF = 0.011 ; font for vector reference annotation
 res2@vcRefAnnoString2On = False ; turn off string "Reference vector" in vector ref annotation box
 res2@vcRefAnnoOrthogonalPosF = 0.15 ; y coordinate of vector ref annotation box
-res2@vcRefAnnoParallelPosF = 0.95 ; x coordinate of vector ref annotation box
+res2@vcRefAnnoParallelPosF = 0.97 ; x coordinate of vector ref annotation box
 
 ; resource for panel 
 resP = True
