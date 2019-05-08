@@ -2,7 +2,7 @@ begin
 print("%%%% Enter 'plot_200wsp_wind_hist.ncl' %%%% ")
 
 ;;----domain
-lon1 = 79 
+lon1 = 39 
 lon2 = 181
 lats = 0
 latn = 60

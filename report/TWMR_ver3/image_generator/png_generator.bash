@@ -46,7 +46,7 @@ convert -crop 1006x506+78+362 \
 ## Seasonal
 dir=/data5/hsushipei/tropical_weather_monitoring_system/daily_weather_map
 # 200 hPa
-convert -crop 1062x1124+70+30 \
+convert -rotate "-90" -crop 1136x924+32+133 \
 	${dir}/windspd_wind_200_hist/windspd_wind_200_hist.pdf ${out_dir}/weekly_windspd_wind_200.png
 # 500 hPa
 convert -crop 1128x1136+34+30 \
