@@ -13,7 +13,7 @@ f is a single data
 data_shortn = "GPM_daily_accRain" # short name
 data_dir = "/data5/hsushipei/data/total_field/Precip/GPM/realtime"
 data_name_pf = "3B-DAY-E.MS.MRG.3IMERG." # prefix of data name, separated by date
-data_name_sf = "-S000000-E235959.V05.nc4" # suffix of data name, separated by date
+data_name_sf = "-S000000-E235959.V06.nc4" # suffix of data name, separated by date
 next_t_step_dir = "/data5/hsushipei/tropical_weather_monitoring_system/download_data/dl_GPM_daily_accRain"
 next_t_step_f = data_shortn+"_next_t_step"
 
@@ -40,7 +40,7 @@ else:
 nextt_yy = nextt.strftime('%Y')
 nextt_mm = nextt.strftime('%m')
 nextt_str = nextt.strftime('%Y%m%d')
-wlink = "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/GPM_3IMERGDE.05/"+nextt_yy+"/"+nextt_mm+"/3B-DAY-E.MS.MRG.3IMERG."+nextt_str+"-S000000-E235959.V05.nc4"
+wlink = "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/GPM_3IMERGDE.06/"+nextt_yy+"/"+nextt_mm+"/3B-DAY-E.MS.MRG.3IMERG."+nextt_str+"-S000000-E235959.V06.nc4"
 os.chdir(data_dir) # Go into directory, so the downloaded data will be placed in this folder.
 os.system("wget "+wlink) # download data
 ####
