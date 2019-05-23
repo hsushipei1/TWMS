@@ -7,6 +7,8 @@ lats = -20
 latn = 30
 basevar = "olr"
 
+
+
 ;;----read data
 print("%%%% Enter 'plot_rt_olr.ncl'. Plotting RT OLR... %%%% ")
 f = addfile("/data5/hsushipei/data/total_field/OLR/realtime/latest.nc","r")
