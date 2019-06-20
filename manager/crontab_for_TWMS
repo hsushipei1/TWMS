@@ -1,0 +1,64 @@
+#### Tropical Weather Monitoring System ####
+### I. Satellite Images and Animation
+# 1. Download and process satellite images from CIMSS (past7d)
+0 3,9,15,21 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/cimss_images/past_7d/hist_img_autoDoItOnceManager.py | mail -s "CIMSS Img (past7d)" hsushipei@master.localdomain
+
+# 2. Create satellite image (CIMSS) animation for past 1 and 2 week.
+0 4 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/cimss_images/animation/hist_img_anim_createrManager.py | mail -s "CIMSS animation" hsushipei@master.localdomain
+
+### II. Download realtime data
+# 1. OLR
+30 7,19 * * * python /data5/hsushipei/tropical_weather_monitoring_system/manager/olr_manager.py | mail -s "Download CDR OLR" hsushipei@master.localdomain
+
+# 2. FNL: download, slicing, merging,
+0 */3 * * * python /data5/hsushipei/tropical_weather_monitoring_system/manager/6hr_manager.py | mail -s "FNL data processing" hsushipei@master.localdomain
+
+# 3. GPM accumulated precipitation
+0 1,13 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/download_data/dl_GPM_daily_accRain/GPM_daily_accRain_download_manager.py | mail -s "GPM data processing" hsushipei@master.localdomain
+
+# 4. OISST
+0 4 * * 0,3 /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/download_data/dl_oisst/OISST_daily_downloader.py | mail -s "Download OISST" hsushipei@master.localdomain
+
+# 5. GFS forecast: download, slice, create nc and ctl
+0 0 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/download_data/dl_GFS_6hr_fcst/gfs_manager.py | mail -s "GFS data processing" hsushipei@master.localdomain
+
+# 6. RMM index
+0 8 * * * bash /data5/hsushipei/tropical_weather_monitoring_system/download_data/dl_rmm_index/dl_rmm_index.bash
+
+### III. Realtime data processing 
+# 1. Calculate anomaly: OLR (both with and without GFS fcst)
+45 7 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/manager/calculate_olr_anomaly_manager.py | mail -s "Cal OLR anomaly" hsushipei@master.localdomain
+
+# 2. Calculate anomaly: FNL
+0 7 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/manager/calculate_fnl_anomaly_manager.py | mail -s "Cal FNL anomaly" hsushipei@master.localdomain
+
+# 3. Calculate anomaly: OISST
+0 5 * * 0,3 python /data5/hsushipei/tropical_weather_monitoring_system/manager/calculate_oisst_anomaly_manager.py | mail -s "Cal OISST anomaly" hsushipei@master.localdomain
+
+# 4. Calculate WK OLR filtering (both with and without GFS fcst)
+0 8 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/manager/wk_olr_filtering_manager.py | mail -s "wk OLR filtering" hsushipei@master.localdomain
+
+# 5. Calculate WK FNL (U, V) filtering
+30 7 * * * /home/hsushipei/miniconda2/bin/python /data5/hsushipei/tropical_weather_monitoring_system/manager/wk_fnl_filtering_manager.py | mail -s "wk FNL filtering" hsushipei@master.localdomain
+
+### IV. Create plot
+#1. Weather condition from past to present (Daily weather maps)
+15 8 * * * python /data5/hsushipei/tropical_weather_monitoring_system/manager/plot_daily_weathermap_manager.py | mail -s "Plot daily weather maps" hsushipei@master.localdomain
+
+#2. ENSO 
+0 8 * * * python /data5/hsushipei/tropical_weather_monitoring_system/manager/plot_enso_manager.py | mail -s "Plot ENSO" hsushipei@master.localdomain
+
+#3. Filtered tropical wave (daily weather maps)
+15 8 * * * python /data5/hsushipei/tropical_weather_monitoring_system/manager/plot_wave_daily_weathermap_manager.py | mail -s "Plot tropical waves (daily weather maps)" hsushipei@master.localdomain
+
+#4. Filtered tropical wave (Hovmoller)
+15 8 * * * python /data5/hsushipei/tropical_weather_monitoring_system/manager/plot_wave_hov_manager.py | mail -s "Plot tropical wave hovmoller" hsushipei@master.localdomain
+
+#5. RMM phase diagram
+
+### V. Generate TWMR
+# 1. Generate cropped latest image
+30 8 * * * bash /data5/hsushipei/tropical_weather_monitoring_system/report/TWMR_ver3/image_generator/png_generator.bash | mail -s "Generate PNG" hsushipei@master.localdomain
+
+####
+

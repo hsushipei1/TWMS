@@ -21,15 +21,16 @@ os.system("rm "+gfs_data_dir+"/"+"gfs.*")
 tnow = datetime.datetime.now() # download time LST
 ##tnow = datetime.datetime(2018,5,8,0) # FOR DEBUGGING 
 
-#"""
+"""
 #For Manually Download (un-comment this block)
-#manut = "2017103000" # download time (LST) in yyyymmddhh. ## For testing
-#tnow = datetime.datetime.strptime(manut,'%Y%m%d%H')       ## For testing
+manut = "2019062000" # download time (LST) in yyyymmddhh. ## For testing
+tnow = datetime.datetime.strptime(manut,'%Y%m%d%H')       ## For testing
+"""
 utcnow = tnow + datetime.timedelta(hours=-8) # download time in UTC
-#"""
 
 dlt_utc =  utcnow + datetime.timedelta(hours=-tlag)	# download the data in what time (UTC) 
-dlt_yyyymmddhh = dlt_utc.strftime('%Y%m%d%H') # yyyymmddhh UTC
+dlt_yyyymmddhh = (dlt_utc.strftime('%Y%m%d'))+"/"+dlt_utc.strftime('%H') 
+														# 2019/6/19: yyyymmdd/hh to match the changes over GFS website
 dl_hh = dlt_utc.strftime('%H') # hr portion of download time
 
 ####### create a file storing current time of GFS data 
@@ -45,6 +46,7 @@ for eacht in fct_ary:
 	furl = os.path.join(weburl+dlt_yyyymmddhh,fnsvr)  # file url
 	os.system("wget "+furl)
 	
+	dlt_yyyymmddhh = dlt_utc.strftime('%Y%m%d%H') # 2019/6/19 Change back to yyyymmddhh
 	fnout = "gfs."+dlt_yyyymmddhh+".pgrb2."+reso+".f"+fct2str+".grib2" # output file name
 	try:
 		os.rename(gfs_data_dir+"/"+fnsvr, gfs_data_dir+"/"+fnout)
