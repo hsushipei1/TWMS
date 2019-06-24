@@ -23,14 +23,12 @@ tnow = datetime.datetime.now() # download time LST
 
 """
 #For Manually Download (un-comment this block)
-manut = "2019062000" # download time (LST) in yyyymmddhh. ## For testing
+manut = "2019062200" # download time (LST) in yyyymmddhh. ## For testing
 tnow = datetime.datetime.strptime(manut,'%Y%m%d%H')       ## For testing
 """
-utcnow = tnow + datetime.timedelta(hours=-8) # download time in UTC
 
+utcnow = tnow + datetime.timedelta(hours=-8) # download time in UTC
 dlt_utc =  utcnow + datetime.timedelta(hours=-tlag)	# download the data in what time (UTC) 
-dlt_yyyymmddhh = (dlt_utc.strftime('%Y%m%d'))+"/"+dlt_utc.strftime('%H') 
-														# 2019/6/19: yyyymmdd/hh to match the changes over GFS website
 dl_hh = dlt_utc.strftime('%H') # hr portion of download time
 
 ####### create a file storing current time of GFS data 
@@ -40,13 +38,15 @@ f.close()
 
 ####### download forecast
 for eacht in fct_ary:
+	dlt_yyyymmddhh = (dlt_utc.strftime('%Y%m%d'))+"/"+dlt_utc.strftime('%H') #yyyymmdd/hh, to match the changes over GFS website
+	
 	fct2str = "%03d" %(eacht)
 	
 	fnsvr = "gfs.t"+dl_hh+"z.pgrb2."+reso+".f"+fct2str # file name in server
-	furl = os.path.join(weburl+dlt_yyyymmddhh,fnsvr)  # file url
+	furl = os.path.join(weburl+dlt_yyyymmddhh,fnsvr)  # file url (format: /gfs.yyyymmdd/hh/gfs.t00z.pgrb2.1p00.f000)
 	os.system("wget "+furl)
 	
-	dlt_yyyymmddhh = dlt_utc.strftime('%Y%m%d%H') # 2019/6/19 Change back to yyyymmddhh
+	dlt_yyyymmddhh = dlt_utc.strftime('%Y%m%d%H') # change yyyymmdd/hh back to yyyymmddhh, to complete the rename procedure
 	fnout = "gfs."+dlt_yyyymmddhh+".pgrb2."+reso+".f"+fct2str+".grib2" # output file name
 	try:
 		os.rename(gfs_data_dir+"/"+fnsvr, gfs_data_dir+"/"+fnout)

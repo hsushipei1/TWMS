@@ -21,7 +21,7 @@ output_nc_file = "gfs."+var+"."+data_time+"."+"pgrb2.1p00.f000_f384.daily.nc" # 
 # Slice one variable
 print "Slicing "+var+" from GFS on "+data_time+"..."
 #os.system(WGRIB2+" "+gfs_data_dir+"/gfs."+data_time+".pgrb2.1p00.f000_f384.grib2 -match "+match_word) # testing
-os.system(WGRIB2+" "+gfs_data_dir+"/gfs."+data_time+".pgrb2.1p00.f000_f384.grib2 -nc_nlev 26 -nc4 -netcdf "+gfs_data_dir+"/"+middle_file+" -match "+match_word)
+os.system(WGRIB2+" "+gfs_data_dir+"/gfs."+data_time+".pgrb2.1p00.f000_f384.grib2 -nc_nlev 29 -nc4 -netcdf "+gfs_data_dir+"/"+middle_file+" -match "+match_word)
 
 # Convert to daily
 print "Convert GFS 6hr "+var+" to daily mean..."
