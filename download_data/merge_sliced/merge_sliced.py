@@ -1,5 +1,8 @@
 #!/home/hsushipei/miniconda2/bin/python
 import os, pickle, datetime, sys
+sys.path.append(os.path.abspath("/data5/hsushipei/tropical_weather_monitoring_system/development/dev_compression/download_data/fnl_compression"))
+from fnl_daily_compressor import compress_fnl_daily
+
 #CDO = "~/software/PREVIOUS_SOFTWARE/cdo-1.9.3/bin/cdo -O "
 CDO = "~/software/bin/cdo -O "
 NCCOPY = "~/software/bin/nccopy"
@@ -12,7 +15,6 @@ crt = datetime.datetime.strptime( (sys.argv[1]), "%Y%m%d%H" ) # read current tim
 crtyyyymmdd = crt.strftime("%Y%m%d")
 crtH = crt.strftime("%H") # hr of each day
 crtd = crt.strftime("%d") # "day"
-#print crt
 
 def sixhr2daily( indv_6h_files, singldaily_file, varname_ori, varname_chd ):
 	"""
@@ -29,17 +31,6 @@ def merg2_long_day_data(long_term_daily_file, singldaily_file ):
 	os.system(CDO+" mergetime "+long_term_daily_file+" "+singldaily_file+" "+long_term_daily_file+".temp")
 	os.system("mv "+long_term_daily_file+".temp "+long_term_daily_file)
 
-def compress_daily(infile, outfile):
-	"""
-	Compress each daily data with level=2 (compression rate is about 33% and spent around 6 sec.)
-
-	Arguments:
-	infile: input file (uncompressed file)
-	outfile: output file (compressed file) 
-	"""
-	ncco_lev = 2
-	os.system(NCCOPY+" -d "+ncco_lev+" "+infile+" "+outfile)
-
 
 # At 18Z, run the following procedure
 if crtH == "18":
@@ -52,6 +43,7 @@ if crtH == "18":
 	sixhr2daily( slic_6h_dir+"fnl025_hgt_"+crtyyyymmdd+"*.nc4", slic_day_dir+"fnl025_hgt_"+crtyyyymmdd+".nc4","HGT","HGT")
 
 	# Compress (with nccopy) daily data 
+	compress_fnl_daily( "" )
 
 else:
 	print "t= "+crtH+" Wait untill 18Z to create daily data."
