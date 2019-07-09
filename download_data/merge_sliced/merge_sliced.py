@@ -13,8 +13,6 @@ crt = datetime.datetime.strptime( (sys.argv[1]), "%Y%m%d%H" ) # read current tim
 crtyyyymmdd = crt.strftime("%Y%m%d")
 crtH = crt.strftime("%H") # hr of each day
 crtd = crt.strftime("%d") # "day"
-print crtyyyymmdd
-quit()
 
 def sixhr2daily( indv_6h_files, singldaily_file, varname_ori, varname_chd ):
 	"""
@@ -29,20 +27,30 @@ if crtH == "18":
 	print "**** Enter 'merge_sliced.py' at "+str(crt)+" => Start merging sliced files ****"
 
 	# Merge 6 hr data to daily data
-	##sixhr2daily( slic_6h_dir+"fnl025_pw_"+crtyyyymmdd+"*.nc4", \
-	##		slic_day_dir+"fnl025_pw_"+crtyyyymmdd+"_unzip.nc4", "PWAT_entireatmosphere_consideredasasinglelayer_" ,"pw" )
+	sixhr2daily( slic_6h_dir+"fnl025_pw_"+crtyyyymmdd+"*.nc4", \
+			slic_day_dir+"fnl025_pw_"+crtyyyymmdd+"_unzip.nc4", "PWAT_entireatmosphere_consideredasasinglelayer_" ,"pw" )
 	sixhr2daily( slic_6h_dir+"fnl025_u_"+crtyyyymmdd+"*.nc4", \
 			slic_day_dir+"fnl025_u_"+crtyyyymmdd+"_unzip.nc4", "UGRD","u")
-	##sixhr2daily( slic_6h_dir+"fnl025_v_"+crtyyyymmdd+"*.nc4", \
-	##		slic_day_dir+"fnl025_v_"+crtyyyymmdd+"_unzip.nc4","VGRD","v")
-	##sixhr2daily( slic_6h_dir+"fnl025_hgt_"+crtyyyymmdd+"*.nc4", \
-	##		slic_day_dir+"fnl025_hgt_"+crtyyyymmdd+"_unzip.nc4","HGT","HGT")
+	sixhr2daily( slic_6h_dir+"fnl025_v_"+crtyyyymmdd+"*.nc4", \
+			slic_day_dir+"fnl025_v_"+crtyyyymmdd+"_unzip.nc4","VGRD","v")
+	sixhr2daily( slic_6h_dir+"fnl025_hgt_"+crtyyyymmdd+"*.nc4", \
+			slic_day_dir+"fnl025_hgt_"+crtyyyymmdd+"_unzip.nc4","HGT","HGT")
 
 	# Compress (with nccopy) daily data 
+	compress_fnl_daily( slic_day_dir+"fnl025_pw_"+crtyyyymmdd+"_unzip.nc4", \
+			slic_day_dir+"fnl025_pw_"+crtyyyymmdd+".nc4" )
 	compress_fnl_daily( slic_day_dir+"fnl025_u_"+crtyyyymmdd+"_unzip.nc4", \
 			slic_day_dir+"fnl025_u_"+crtyyyymmdd+".nc4" )
+	compress_fnl_daily( slic_day_dir+"fnl025_v_"+crtyyyymmdd+"_unzip.nc4", \
+			slic_day_dir+"fnl025_v_"+crtyyyymmdd+".nc4" )
+	compress_fnl_daily( slic_day_dir+"fnl025_hgt_"+crtyyyymmdd+"_unzip.nc4", \
+			slic_day_dir+"fnl025_hgt_"+crtyyyymmdd+".nc4" )
 	
 	# Remove intermediate file
+	os.remove(slic_day_dir+"fnl025_pw_"+crtyyyymmdd+"_unzip.nc4")
+	os.remove(slic_day_dir+"fnl025_u_"+crtyyyymmdd+"_unzip.nc4")
+	os.remove(slic_day_dir+"fnl025_v_"+crtyyyymmdd+"_unzip.nc4")
+	os.remove(slic_day_dir+"fnl025_hgt_"+crtyyyymmdd+"_unzip.nc4")
 
 else:
 	print "t= "+crtH+" Wait untill 18Z to create daily data."
