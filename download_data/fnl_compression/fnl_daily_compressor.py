@@ -8,9 +8,9 @@ def compress_fnl_daily(infile, outfile):
 	infile: input file (uncompressed file)
 	outfile: output file (compressed file) 
 	"""
-	#NCCOPY = "~/software/bin/nccopy"
-	#ncco_lev = 2
+	NCCOPY = "~/software/bin/nccopy"
+	ncco_lev = 2
 	#os.system(NCCOPY+" -d "+ncco_lev+" "+infile+" "+outfile)
-	print "compress_daily function"
+	print infile+" compressed (level= "+ncco_lev+") -> "+outfile
 
 
