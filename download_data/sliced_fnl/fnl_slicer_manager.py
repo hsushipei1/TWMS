@@ -23,10 +23,6 @@ fcrt = open(fnl_slicer_dir+"current_time","rb")
 crt = pickle.load(fcrt) # lastest sliced data.
 #crt = datetime.datetime( 2018,7,22,12 ) # FOR DEBUGGING 
 dt = (newt-crt).total_seconds()/3600 # new t - current t (hours): dt between latest FNL and sliced data
-#print newt
-#print crt
-#print dt
-#quit()
 
 print "&&&& Enter 'fnl_slicer_manager.py' at "+str(crt)+" => Start slicing files &&&&"
 

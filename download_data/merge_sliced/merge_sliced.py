@@ -1,6 +1,6 @@
 #!/home/hsushipei/miniconda2/bin/python
 import os, pickle, datetime, sys
-sys.path.append(os.path.abspath("/data5/hsushipei/tropical_weather_monitoring_system/development/dev_compression/download_data/fnl_compression"))
+sys.path.append(os.path.abspath("/data5/hsushipei/tropical_weather_monitoring_system/download_data/fnl_compression/"))
 from fnl_daily_compressor import compress_fnl_daily
 
 #CDO = "~/software/PREVIOUS_SOFTWARE/cdo-1.9.3/bin/cdo -O "
