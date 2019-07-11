@@ -10,20 +10,20 @@
 
 ### Processed Data
 1. High frequency anomaly
-(1) OLR 
-(2) 925-hPa wind 
-(3) Precipitable water 
-(4) SST 
+- OLR 
+- 925-hPa wind 
+- Precipitable water 
+- SST 
 
 2. Interannual band anomaly
-(1) OLR 
-(2) 925-hPa wind
+- OLR 
+- 925-hPa wind
 
 3. Wavenumber-frequency filtered tropical wave 
 For MJO, Kelvin wave, ER, and MRG/TD
-(1) OLR
-(2) 925-hPa wind
-(3) 200-hPa wind
+- OLR
+- 925-hPa wind
+- 200-hPa wind
 
 ###  Plots
 1. 2D Weather Maps
