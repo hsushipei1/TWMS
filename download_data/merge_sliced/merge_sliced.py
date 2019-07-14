@@ -1,11 +1,13 @@
 #!/home/hsushipei/miniconda2/bin/python
 import os, pickle, datetime, sys
+
+# Import the FNL compressor function (compress_fnl_daily) defined in other file
 sys.path.append(os.path.abspath("/data5/hsushipei/tropical_weather_monitoring_system/download_data/fnl_compression/"))
 from fnl_daily_compressor import compress_fnl_daily
 
 #CDO = "~/software/PREVIOUS_SOFTWARE/cdo-1.9.3/bin/cdo -O "
 CDO = "~/software/bin/cdo -O "
-NCCOPY = "~/software/bin/nccopy"
+NCCOPY = "~/software/bin/nccopy" # netcdf file compression program following the NetCDF software.
 slic_6h_dir = "/data5/hsushipei/data/fnl/sliced/latest/6hr/"
 slic_day_dir = "/data5/hsushipei/data/fnl/sliced/latest/daily/"
 
@@ -17,7 +19,7 @@ crtd = crt.strftime("%d") # "day"
 def sixhr2daily( indv_6h_files, singldaily_file, varname_ori, varname_chd ):
 	"""
 	20180722
-	Merge 6 hr data to daily data and compress it. 
+	Merge 6 hr data to daily data. 
 	"""
 	os.system(CDO+" -a -f nc -shifttime,-9hours -daymean -chname,'"+varname_ori+"','"+varname_chd+"' -cat '"+indv_6h_files+"' "+singldaily_file) # without compression
 
