@@ -1,11 +1,15 @@
 export PATH=/home/hsushipei/software/bin:${PATH}
 export rtolrdir="/data5/hsushipei/data/total_field/OLR/realtime/"
+export merge_dir=${rtolrdir}"for_merging/" 
+		# Download the raw OLR file into directory "for_merging" for the convenience to merge into "latest.nc"
 
 yyyy=$(date +%Y) # current year
 
 echo "==== Enter 'rt_olr_data.bash'. Download and create realtime OLR data... ===="
 
-rm ${rtolrdir}olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc2
+rm ${merge_dir}olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc
+exit
+
 
 wget http://olr.umd.edu/CDR/Daily/v01r02-interim/olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc \
 	-O ${rtolrdir}olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc
