@@ -7,20 +7,16 @@ yyyy=$(date +%Y) # current year
 
 echo "==== Enter 'rt_olr_data.bash'. Download and create realtime OLR data... ===="
 
-rm ${merge_dir}olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc
-exit
-
+rm ${merge_dir}olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc # Remove the olr RT file.
 
 wget http://olr.umd.edu/CDR/Daily/v01r02-interim/olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc \
-	-O ${rtolrdir}olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc
+	-O ${merge_dir}olr-daily_v01r02-preliminary_${yyyy}0101_latest.nc # Download latest RT file into "for_merging".
 
-exit
-# Create realtime OLR data (relative time)
-cdo -O -cat \
-	${rtolrdir}olr-daily_v01r02_20150101_prelim20181231.nc ${rtolrdir}olr-daily_v01r02-preliminary_20190101_latest.nc \
-	${rtolrdir}latest_grads.nc
+# Merge and create realtime OLR data (relative time)
+cdo -O mergetime \
+	${merge_dir}olr-daily_* ${rtolrdir}latest_grads.nc # Merge OLR and save it to dir "realtime"
 
 # Create realtime OLR data (absolute time)
 cdo -O -a shifttime,-12hour ${rtolrdir}latest_grads.nc ${rtolrdir}latest.nc
 
-echo "!!!! Leave 'rt_olr_data.bash'.End of processing realtime OLR data. !!!!"
+echo "==== Leave 'rt_olr_data.bash'.End of processing realtime OLR data. ===="
