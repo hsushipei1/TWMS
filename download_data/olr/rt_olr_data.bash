@@ -1,9 +1,12 @@
 export PATH=/home/hsushipei/software/bin:${PATH}
 export rtolrdir="/data5/hsushipei/data/total_field/OLR/realtime/"
 
-echo "!!!! Enter 'rt_olr_data.bash'. Download and create realtime OLR data... !!!!"
+yyyy=$(date +%Y) # current year
 
-rm ${rtolrdir}olr-daily_v01r02-preliminary_20190101_latest.nc
+echo "==== Enter 'rt_olr_data.bash'. Download and create realtime OLR data... ===="
+
+rm ${rtolrdir}olr-daily_v01r02-preliminary_20190101_latest.nc2
+exit
 
 wget http://olr.umd.edu/CDR/Daily/v01r02-interim/olr-daily_v01r02-preliminary_20190101_latest.nc \
 	-O ${rtolrdir}olr-daily_v01r02-preliminary_20190101_latest.nc
