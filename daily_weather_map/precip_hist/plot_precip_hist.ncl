@@ -17,25 +17,15 @@ dates = dates_arr( :,1 ) ; yyyymmdd
 f = addfiles (fils_li, "r")
 ListSetType(f, "cat") ; For IMERG V6, the coordinate of Precip in single file is time x lon lat, so use "cat" here.
 pcp = f[:]->precipitationCal(:,{lon1:lon2},{lats:latn}) ; time(unit: relative) x lon x lat 
-;printVarSummary(pcp)
-
-;;  ;;  ; define time coordinate
-;;  ft = addfile("/data5/hsushipei/data/total_field/U/ei075_uprs_1979_2015_daily_clim.nc","r")
-;;  timeb = ft->time(0) ; borrow attribute from another file
-;;  time = new( totd, typeof(timeb) )
-;;  time = todouble( dates )
-;;  copy_VarAtts( timeb, time )
-;;  delete(time@_FillValue)
-;;  ;printVarSummary(time)
-;;  
-;;  pcp!0 = "time"
-;;  pcp&time = time
-;;  ;pcp=pcp/24. ; accumulated rainfall to daily rain rate
 printVarSummary(pcp) ; time x lon x lat
-;print(pcp(:,10,20))
+
+; (For V06) Convert relative time (of input file) to absolute time
+abs_time = cd_calendar(pcp&time, 2) ; absolute time, and it will replace the original relative time coord of pcp.
+pcp&time = abs_time ; replace time coordinate, now it is absolute time
 
 ;;---- Choose period for various plots
-p1m_d = pcp&time
+p1m_d = pcp&time ; date array
+
 p1p_d = p1m_d( dimsizes(p1m_d)- 5:dimsizes(p1m_d)- 1 ) 
 p2p_d = p1m_d( dimsizes(p1m_d)-10:dimsizes(p1m_d)- 6 ) 
 p3p_d = p1m_d( dimsizes(p1m_d)-15:dimsizes(p1m_d)-11 )
