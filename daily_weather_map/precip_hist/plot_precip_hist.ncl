@@ -15,25 +15,24 @@ fils_li = fils( dimsizes(fils)-totd:dimsizes(fils)-1 )
 dates_arr = str_split_by_length( fils_li, (/77, 8, 24/) )
 dates = dates_arr( :,1 ) ; yyyymmdd
 f = addfiles (fils_li, "r")
-ListSetType(f, "join")
-pcp = f[:]->precipitationCal(:,{lon1:lon2},{lats:latn}) ; (time) x lon x lat , time coordinate isnt defined
+ListSetType(f, "cat") ; For IMERG V6, the coordinate of Precip in single file is time x lon lat, so use "cat" here.
+pcp = f[:]->precipitationCal(:,{lon1:lon2},{lats:latn}) ; time(unit: relative) x lon x lat 
 ;printVarSummary(pcp)
 
-; define time coordinate
-ft = addfile("/data5/hsushipei/data/total_field/U/ei075_uprs_1979_2015_daily_clim.nc","r")
-timeb = ft->time(0) ; borrow attribute from another file
-time = new( totd, typeof(timeb) )
-time = todouble( dates )
-copy_VarAtts( timeb, time )
-delete(time@_FillValue)
-;printVarSummary(time)
-
-pcp!0 = "time"
-pcp&time = time
-;pcp=pcp/24. ; accumulated rainfall to daily rain rate
+;;  ;;  ; define time coordinate
+;;  ft = addfile("/data5/hsushipei/data/total_field/U/ei075_uprs_1979_2015_daily_clim.nc","r")
+;;  timeb = ft->time(0) ; borrow attribute from another file
+;;  time = new( totd, typeof(timeb) )
+;;  time = todouble( dates )
+;;  copy_VarAtts( timeb, time )
+;;  delete(time@_FillValue)
+;;  ;printVarSummary(time)
+;;  
+;;  pcp!0 = "time"
+;;  pcp&time = time
+;;  ;pcp=pcp/24. ; accumulated rainfall to daily rain rate
 printVarSummary(pcp) ; time x lon x lat
 ;print(pcp(:,10,20))
-;exit
 
 ;;---- Choose period for various plots
 p1m_d = pcp&time
