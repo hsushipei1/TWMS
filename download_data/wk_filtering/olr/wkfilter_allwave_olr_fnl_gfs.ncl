@@ -75,8 +75,6 @@ mt_trueWaveName = "FR06_MRG-TD"
 ;;---- read data (350 days obs + 15 days GFS fcst)
 ; real-time data (no leap day)
 f = addfile("/data5/hsushipei/data/total_field/OLR/realtime/latest.nc","r")
-;f = addfile("/data5/hsushipei/data/fnl/sliced/latest/daily/fnl025_u_201601_latest_daily.nc","r")
-;f = addfile("/data5/hsushipei/data/fnl/sliced/fnl025_v_20151101_201705_daily.nc","r")
 olr_tc = f->time 
 olrt_split = str_split_by_length( tostring(olr_tc) ,(/4,2,2/) )
 olrt_noleap = olr_tc(ind( .not.((olrt_split(:,1).eq."02").and.(olrt_split(:,2).eq."29")) ))
@@ -85,8 +83,6 @@ rt_end@long_name = "End date of real time total field"
 rt_start = olrt_noleap(dimsizes(olrt_noleap)-350) ; start date of read real time total field
 rt_start@long_name = "Start date of real time total field"
 olrs = f->olr({olrt_noleap({rt_start:rt_end})},{lats:latn},:) ; [ntime]x[nlat]x[nlon]
-;olrs = f->UGRD({olrt_noleap({rt_start:rt_end})},{925},{lats:latn},:) ; [ntime]x[nlat]x[nlon]
-;olrs = f->v({olrt_noleap({rt_start:rt_end})},{925},{lats:latn},:) ; [ntime]x[nlat]x[nlon]
 
 ; !!! When filtering FNL data (0.25 deg), real-time data regridding (to lower its spacial resolution) is neccessary.
 ;olr = olrs           ; filter OLR
@@ -113,14 +109,8 @@ printVarSummary(varf)
 
 ; time mean and slow annaul cycle data
 f2 = addfile("/data5/hsushipei/data/wh04_data/mean_and_demean_slow_annual_cycle_data/mean_and_demean_slow_annual_cycle_olr.nc","r")
-;f2 = addfile("/data5/hsushipei/data/wh04_data/mean_and_demean_slow_annual_cycle_data/mean_and_demean_slow_annual_cycle_u925.nc","r")
-;f2 = addfile("/data5/hsushipei/data/wh04_data/mean_and_demean_slow_annual_cycle_data/mean_and_demean_slow_annual_cycle_v925.nc","r")
 olrsac = f2->olr(:,{lats:latn},:) ; [365]x[nlat]x[nlon] 
 olrm = f2->olrm({lats:latn},:) ;[nlat]x[nlon]
-;olrsac = f2->u925(:,{lats:latn},:) ; [365]x[nlat]x[nlon] 
-;olrm = f2->u925m({lats:latn},:) ;[nlat]x[nlon]
-;olrsac = f2->v925(:,{lats:latn},:) ; [365]x[nlat]x[nlon] 
-;olrm = f2->v925m({lats:latn},:) ;[nlat]x[nlon]
 printVarSummary(olrsac)
 printVarSummary(olrm)
 
@@ -129,8 +119,6 @@ printVarSummary(olrm)
 ; cut data spaning from 1/1 to given date -> the section to extend
 rt_end_mmdd =str_split_by_length(fcst_end,(/4,4/)) ; in fnl+gfs, rt_end is replaced by fcst_end
 olrsac2 = f2->olr({:"2000"+rt_end_mmdd(1)},{lats:latn},:)  ; from 1/1 to given data
-;olrsac2 = f2->u925({:"2000"+rt_end_mmdd(1)},{lats:latn},:)  ; from 1/1 to given data
-;olrsac2 = f2->v925({:"2000"+rt_end_mmdd(1)},{lats:latn},:)  ; from 1/1 to given data
 ;printVarSummary(olrsac2)
 
 ; extend slow annual cycle
