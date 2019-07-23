@@ -15,7 +15,7 @@ datee = sys.argv[1] # slice fnl at datee, yyyymmddhh
 
 # HGT: Geopotential at pressure level (netcdf4 zip) 
 os.system(WGRIB2+fnl_dir+"/gdas1.fnl0p25."+datee+".f00.grib2 "+\
-		"-match ':HGT:....*mb:' -nc4 -nc_nlev 29 -netcdf "+output_dir+"/fnl025_hgt_"+datee+".nc444")
+		"-match ':HGT:....*mb:' -nc4 -nc_nlev 29 -netcdf "+output_dir+"/fnl025_hgt_"+datee+".nc4")
 
 # PWAT: precipitable water (netcdf4 zip) 
 os.system(WGRIB2+fnl_dir+"/gdas1.fnl0p25."+datee+".f00.grib2 "+\
