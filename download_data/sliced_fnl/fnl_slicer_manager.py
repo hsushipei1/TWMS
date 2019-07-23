@@ -41,7 +41,7 @@ if dt >= 6: ## does sliced data lags (including newt) latest FNL for more than 1
 		#os.system("DATE="+crt_str+" VAR=pw "+NCL+fnl_slicer_dir+"fnl_slicer_2d.ncl") # pw
 
 		# wgrib2 slicer (20180425: newer slicer. Hope to replace NCL slicer.)
-		os.system(PYTHON+fnl_slicer_dir+"fnl_slicer_wgrib2.py "+crt_str) 
+		os.system(PYTHON+fnl_slicer_dir+"fnl_slicer_wgrib2.py "+crt_str) # wgrib2 slicer
 		chk_sliced_exist(sliced_dir, "fnl025_hgt_"+crt_str+".nc4") # check slicing
 		chk_sliced_exist(sliced_dir, "fnl025_pw_"+crt_str+".nc4") # check slicing
 		chk_sliced_exist(sliced_dir, "fnl025_u_"+crt_str+".nc4") # check slicing
