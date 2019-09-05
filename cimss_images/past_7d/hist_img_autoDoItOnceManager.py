@@ -13,7 +13,7 @@ Manager for automatically downloading (historical [or previous]) satellite image
 """
 
 curt =  datetime.datetime.now() # current time
-#curt =  datetime.datetime(2017,9,9,21) # fake current time (LST)
+#curt =  datetime.datetime(2019,9,5,15) # fake current time (LST)
 curt_str = curt.strftime("%Y%m%d%H%M") # 
 dltU = curt + datetime.timedelta(hours=-1-8) ## download time in UTC (= curt-1hr-8hr [to UTC])
 
@@ -39,8 +39,8 @@ for ch in channel:
 	for rg in region:
 		prev_img_dir = "/data5/hsushipei/tropical_weather_monitoring_system/cimss_images/past_7d/"+ch+"/cropped"
 		os.chdir(prev_img_dir)
-		prev_img_li = sorted( glob.glob("overlaid_"+ch+"_"+rg+"_*_cropped.png") ) # list of previous imgs
-		latest_prev_img = prev_img_li[len(prev_img_li)-1]
+		prev_img_li = sorted( glob.glob("overlaid_"+ch+"_"+rg+"_*_cropped.png") ) # list of all previous imgs
+		latest_prev_img = prev_img_li[len(prev_img_li)-1] # name of latest previous img
 		latest_prev_time = datetime.datetime.strptime( latest_prev_img.split("_")[3], "%Y%m%d.%H" ) 
 										## time of latest previous img (datetime object)
 		dhr = (dltU-latest_prev_time).total_seconds()/3600.0 # lagged hours
@@ -51,7 +51,7 @@ for ch in channel:
 			dtstep = dhr / 6. # lagged time step (per 6 hours)
 			tt = 1
 			while tt <= dtstep:
-				latest_prev_time = latest_prev_time+datetime.timedelta(hours=+6)
+				latest_prev_time = latest_prev_time+datetime.timedelta(hours=+6) # next time step
 				latest_prev_time_ymd_str = latest_prev_time.strftime("%Y%m%d") # download time: yyyymmdd
 				latest_prev_time_h_str = latest_prev_time.strftime("%H") # download time: hh
 				print "* Proccessing "+ch+" over "+rg+" on "+latest_prev_time.strftime("%Y%m%d.%H")+"Z"
